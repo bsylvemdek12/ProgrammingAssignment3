@@ -1,4 +1,4 @@
-rankhospital <- function(state, outcome)
+rankhospital <- function(state, outcome, num="best")
 {
   outcomes <- read.csv("outcome-of-care-measures.csv", colClasses = "character")
   outcomeTypes <- c("heart attack", "heart failure", "pneumonia")
@@ -27,7 +27,7 @@ rankhospital <- function(state, outcome)
   
   dataSet <- dataSet[with(dataSet,order(dataSet[,3])),]
   
-  dataSet <- transform(dataSet,ItemRank=rank(dataSet[,3],ties.method="first"))
+  dataSet <- transform(dataSet,Rank=rank(dataSet[,3],ties.method="first"))
   
-  dataSet
+  dataSet[dataSet$Rank==num,1]
 }
